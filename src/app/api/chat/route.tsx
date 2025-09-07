@@ -104,7 +104,9 @@ Response:`
     console.error('Gemini 2.0 Flash API Error:', error)
     
     // Enhanced error handling
-    let errorMessage = 'Sorry, I encountered an error. Please try again later.'
+    // ✅ FIXED: Change line 107 from 'let' to 'const'
+    const errorMessage = 'An error occurred while processing your request.'
+
 
     return NextResponse.json(
       { error: errorMessage },
