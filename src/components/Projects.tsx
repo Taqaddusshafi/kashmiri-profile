@@ -1,8 +1,26 @@
 'use client'
 import { useLanguage } from '../context/LanguageContext'
+import { useState, useEffect } from 'react'
 
 export default function Projects() {
   const { isKashmiri } = useLanguage()
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.getElementById('projects-section')
+    if (section) observer.observe(section)
+
+    return () => observer.disconnect()
+  }, [])
 
   const projects = [
     {
@@ -16,7 +34,10 @@ export default function Projects() {
       image: '🤖',
       liveUrl: '#',
       githubUrl: '#',
-      featured: true
+      featured: true,
+      bgColor: 'bg-blue-50',
+      borderColor: 'border-blue-200',
+      categoryBg: 'bg-blue-600'
     },
     {
       title: 'CVE Severity Predictor',
@@ -29,7 +50,10 @@ export default function Projects() {
       image: '🔍',
       liveUrl: '#',
       githubUrl: '#',
-      featured: true
+      featured: true,
+      bgColor: 'bg-red-50',
+      borderColor: 'border-red-200',
+      categoryBg: 'bg-red-600'
     },
     {
       title: 'ZTTM - Threat Mapper',
@@ -42,7 +66,10 @@ export default function Projects() {
       image: '🛡️',
       liveUrl: '#',
       githubUrl: '#',
-      featured: true
+      featured: true,
+      bgColor: 'bg-green-50',
+      borderColor: 'border-green-200',
+      categoryBg: 'bg-green-600'
     },
     {
       title: 'Real-Time Chat Application',
@@ -55,7 +82,10 @@ export default function Projects() {
       image: '💬',
       liveUrl: '#',
       githubUrl: '#',
-      featured: false
+      featured: false,
+      bgColor: 'bg-purple-50',
+      borderColor: 'border-purple-200',
+      categoryBg: 'bg-purple-600'
     },
     {
       title: 'Duty Leave Management App',
@@ -68,7 +98,10 @@ export default function Projects() {
       image: '📋',
       liveUrl: '#',
       githubUrl: '#',
-      featured: false
+      featured: false,
+      bgColor: 'bg-orange-50',
+      borderColor: 'border-orange-200',
+      categoryBg: 'bg-orange-600'
     },
     {
       title: 'React Native Expensify',
@@ -81,7 +114,10 @@ export default function Projects() {
       image: '💰',
       liveUrl: '#',
       githubUrl: '#',
-      featured: false
+      featured: false,
+      bgColor: 'bg-emerald-50',
+      borderColor: 'border-emerald-200',
+      categoryBg: 'bg-emerald-600'
     },
     {
       title: 'iOS Daily Quote App',
@@ -94,7 +130,10 @@ export default function Projects() {
       image: '💭',
       liveUrl: '#',
       githubUrl: '#',
-      featured: false
+      featured: false,
+      bgColor: 'bg-indigo-50',
+      borderColor: 'border-indigo-200',
+      categoryBg: 'bg-indigo-600'
     },
     {
       title: 'Order Management Dashboard',
@@ -107,7 +146,10 @@ export default function Projects() {
       image: '📊',
       liveUrl: '#',
       githubUrl: '#',
-      featured: false
+      featured: false,
+      bgColor: 'bg-teal-50',
+      borderColor: 'border-teal-200',
+      categoryBg: 'bg-teal-600'
     }
   ]
 
@@ -115,65 +157,85 @@ export default function Projects() {
   const otherProjects = projects.filter(p => !p.featured)
 
   return (
-    <section className={`py-24 bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 relative ${isKashmiri ? 'font-kashmiri' : ''}`}>
-      <div className="absolute inset-0 bg-black/30"></div>
-      <div className="container mx-auto px-6 relative z-10">
+    <section 
+      id="projects-section"
+      className={`py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-white via-gray-50 to-slate-100 relative overflow-hidden ${isKashmiri ? 'font-kashmiri' : ''}`}
+    >
+      {/* ✅ Kashmir-themed Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-64 sm:w-80 h-64 sm:h-80 bg-green-100/40 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-gentle-float"></div>
+        <div className="absolute bottom-20 right-10 w-72 sm:w-96 h-72 sm:h-96 bg-blue-100/40 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-gentle-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 sm:w-[32rem] h-80 sm:h-[32rem] bg-teal-100/30 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-gentle-float" style={{ animationDelay: '4s' }}></div>
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className={`max-w-7xl mx-auto ${isKashmiri ? 'text-right' : ''}`}>
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-black mb-6 text-white text-shadow-glow">
+          
+          {/* ✅ High Contrast Section Header */}
+          <div className="text-center mb-12 sm:mb-16 md:mb-20">
+            <div className={`inline-block mb-4 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+              <span className="px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-2xl text-sm font-bold uppercase tracking-wider shadow-lg">
+                {isKashmiri ? 'میرے کام' : 'My Work'}
+              </span>
+            </div>
+            <h2 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-gray-800 leading-tight ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
               {isKashmiri ? 'منتخب پروجیکٹس' : 'Featured Projects'}
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto font-semibold leading-relaxed mb-6">
               {isKashmiri 
                 ? 'میٚ کین بہترین کام مختلف ڈومینز منز - سائبر سیکیورٹی، فُل سٹیک، تہ موبائل ایپس'
                 : 'Showcasing my best work across Cybersecurity, Full Stack Development, and Mobile Applications'
               }
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-pink-400 to-cyan-400 mx-auto rounded-full mt-6"></div>
+            <div className={`w-24 h-2 bg-gradient-to-r from-green-600 to-blue-600 mx-auto rounded-full shadow-lg ${isVisible ? 'animate-scale-in' : 'opacity-0 scale-0'}`} style={{ animationDelay: '0.4s' }}></div>
           </div>
 
-          {/* Featured Projects */}
-          <div className="mb-20">
-            <h3 className="text-3xl font-bold text-white mb-12 text-center">
+          {/* ✅ Featured Projects - High Contrast */}
+          <div className="mb-16 sm:mb-20 md:mb-24">
+            <h3 className={`text-3xl sm:text-4xl font-bold text-gray-800 mb-12 text-center ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.6s' }}>
               {isKashmiri ? '⭐ اہم پروجیکٹس' : '⭐ Featured Work'}
             </h3>
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
               {featuredProjects.map((project, index) => (
-                <div key={index} className="glass p-8 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 card-hover group">
-                  <div className="text-center mb-6">
-                    <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div 
+                  key={index} 
+                  className={`group ${project.bgColor} border-2 ${project.borderColor} p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] ${isVisible ? 'animate-slide-in-up' : 'opacity-0'}`}
+                  style={{ animationDelay: `${0.8 + index * 0.1}s` }}
+                >
+                  <div className="text-center mb-6 sm:mb-8">
+                    <div className="text-5xl sm:text-6xl mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
                       {project.image}
                     </div>
-                    <span className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-cyan-500 text-white px-3 py-1 rounded-full text-sm font-semibold mb-3">
+                    <span className={`inline-flex items-center gap-2 ${project.categoryBg} text-white px-4 py-2 rounded-2xl text-sm font-bold mb-4 shadow-lg border-2 border-white`}>
                       {isKashmiri ? project.categoryKs : project.category}
                     </span>
                   </div>
                   <div className="text-center">
-                    <h3 className="text-xl font-bold text-white mb-3">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4 group-hover:text-blue-600 transition-colors duration-300">
                       {isKashmiri ? project.titleKs : project.title}
                     </h3>
-                    <p className="text-gray-300 mb-4 leading-relaxed text-sm">
+                    <p className="text-gray-700 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base font-medium">
                       {isKashmiri ? project.descriptionKs : project.description}
                     </p>
-                    <div className="flex flex-wrap justify-center gap-2 mb-6">
+                    <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
                       {project.tech.map(tech => (
-                        <span key={tech} className="bg-white/10 backdrop-blur-sm text-cyan-300 px-2 py-1 rounded-full text-xs font-medium border border-cyan-400/30">
+                        <span key={tech} className="bg-white shadow-md border border-gray-300 text-gray-800 px-3 py-1 rounded-full text-xs sm:text-sm font-bold hover:bg-gray-50 hover:scale-105 transition-all duration-300">
                           {tech}
                         </span>
                       ))}
                     </div>
-                    <div className="flex justify-center gap-3">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                       <a 
                         href={project.liveUrl}
-                        className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-violet-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:scale-105 transition-all duration-300"
+                        className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-2xl text-sm sm:text-base font-bold hover:scale-105 hover:shadow-lg transition-all duration-300 border-2 border-green-500"
                       >
-                        🔗 {isKashmiri ? 'ویکھیو' : 'Live'}
+                        🔗 {isKashmiri ? 'ویکھیو' : 'Live Demo'}
                       </a>
                       <a 
                         href={project.githubUrl}
-                        className="flex items-center gap-2 border border-white/30 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-white/10 transition-all duration-300"
+                        className="flex items-center justify-center gap-2 border-2 border-gray-400 bg-white text-gray-800 px-6 py-3 rounded-2xl text-sm sm:text-base font-bold hover:bg-gray-50 hover:scale-105 hover:shadow-lg transition-all duration-300"
                       >
-                        💻 {isKashmiri ? 'کوڈ' : 'Code'}
+                        💻 {isKashmiri ? 'کوڈ' : 'Source Code'}
                       </a>
                     </div>
                   </div>
@@ -182,43 +244,52 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* Other Projects */}
-          <div>
-            <h3 className="text-3xl font-bold text-white mb-12 text-center">
+          {/* ✅ Other Projects - High Contrast */}
+          <div className="mb-16 sm:mb-20">
+            <h3 className={`text-3xl sm:text-4xl font-bold text-gray-800 mb-12 text-center ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '1.4s' }}>
               {isKashmiri ? '💼 دیگر پروجیکٹس' : '💼 Other Projects'}
             </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {otherProjects.map((project, index) => (
-                <div key={index} className="glass p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 card-hover group">
+                <div 
+                  key={index} 
+                  className={`group ${project.bgColor} border-2 ${project.borderColor} p-4 sm:p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] ${isVisible ? 'animate-slide-in-up' : 'opacity-0'}`}
+                  style={{ animationDelay: `${1.6 + index * 0.1}s` }}
+                >
                   <div className="text-center mb-4">
-                    <div className="text-4xl mb-3">{project.image}</div>
-                    <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">
+                    <div className="text-3xl sm:text-4xl mb-3">{project.image}</div>
+                    <span className={`text-xs ${project.categoryBg} text-white px-3 py-1 rounded-full font-bold shadow-sm`}>
                       {isKashmiri ? project.categoryKs : project.category}
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 text-center">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-2 text-center group-hover:text-blue-600 transition-colors duration-300">
                     {isKashmiri ? project.titleKs : project.title}
                   </h3>
-                  <p className="text-gray-300 mb-3 text-sm leading-relaxed">
+                  <p className="text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed font-medium line-clamp-3">
                     {isKashmiri ? project.descriptionKs : project.description}
                   </p>
-                  <div className="flex flex-wrap gap-1 mb-4">
+                  <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
                     {project.tech.slice(0, 3).map(tech => (
-                      <span key={tech} className="bg-white/10 text-cyan-300 px-2 py-1 rounded text-xs">
+                      <span key={tech} className="bg-white border border-gray-300 text-gray-700 px-2 py-1 rounded text-xs font-semibold">
                         {tech}
                       </span>
                     ))}
+                    {project.tech.length > 3 && (
+                      <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded text-xs font-semibold">
+                        +{project.tech.length - 3}
+                      </span>
+                    )}
                   </div>
                   <div className="flex gap-2">
                     <a 
                       href={project.liveUrl}
-                      className="flex-1 text-center bg-gradient-to-r from-purple-500 to-cyan-500 text-white py-2 rounded-lg text-xs font-semibold hover:scale-105 transition-all duration-300"
+                      className="flex-1 text-center bg-gradient-to-r from-green-600 to-blue-600 text-white py-2 rounded-lg text-xs font-bold hover:scale-105 transition-all duration-300 shadow-md"
                     >
                       🔗 {isKashmiri ? 'ویکھیو' : 'Live'}
                     </a>
                     <a 
                       href={project.githubUrl}
-                      className="flex-1 text-center border border-white/30 text-white py-2 rounded-lg text-xs font-semibold hover:bg-white/10 transition-all duration-300"
+                      className="flex-1 text-center border-2 border-gray-400 bg-white text-gray-800 py-2 rounded-lg text-xs font-bold hover:bg-gray-50 hover:scale-105 transition-all duration-300"
                     >
                       💻 {isKashmiri ? 'کوڈ' : 'Code'}
                     </a>
@@ -228,25 +299,104 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* Call to Action */}
-          <div className="text-center mt-20">
-            <div className="glass p-10 rounded-3xl max-w-2xl mx-auto">
-              <h3 className="text-3xl font-bold text-white mb-4">
+          {/* ✅ Skills Showcase */}
+          <div className={`bg-white shadow-2xl rounded-3xl p-8 sm:p-12 border-2 border-gray-300 mb-16 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '2.2s' }}>
+            <div className="text-center mb-12">
+              <h4 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                {isKashmiri ? '🛠️ استعمال شدہ ٹیکنالوجیز' : '🛠️ Technologies Used'}
+              </h4>
+              <p className="text-lg sm:text-xl text-gray-600 font-semibold">
+                {isKashmiri ? 'مختلف پروجیکٹس میں استعمال کی گئی ٹیکنالوجیز' : 'Technologies and tools used across different projects'}
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
+              {[
+                { name: 'Python', icon: '🐍', bg: 'bg-yellow-100', border: 'border-yellow-200' },
+                { name: 'React', icon: '⚛️', bg: 'bg-blue-100', border: 'border-blue-200' },
+                { name: 'Node.js', icon: '🟢', bg: 'bg-green-100', border: 'border-green-200' },
+                { name: 'MongoDB', icon: '🍃', bg: 'bg-emerald-100', border: 'border-emerald-200' },
+                { name: 'Firebase', icon: '🔥', bg: 'bg-orange-100', border: 'border-orange-200' },
+                { name: 'Swift', icon: '🦉', bg: 'bg-purple-100', border: 'border-purple-200' },
+                { name: 'Kotlin', icon: '📱', bg: 'bg-indigo-100', border: 'border-indigo-200' },
+                { name: 'Rust', icon: '🦀', bg: 'bg-red-100', border: 'border-red-200' }
+              ].map((tech, index) => (
+                <div 
+                  key={tech.name}
+                  className={`${tech.bg} border-2 ${tech.border} p-4 rounded-2xl text-center hover:scale-105 transition-all duration-300 shadow-sm hover:shadow-md`}
+                >
+                  <div className="text-2xl sm:text-3xl mb-2">{tech.icon}</div>
+                  <div className="text-gray-800 font-bold text-sm sm:text-base">{tech.name}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ✅ Call to Action */}
+          <div className={`text-center ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '2.5s' }}>
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 p-8 sm:p-12 rounded-3xl border-2 border-gray-200 shadow-xl max-w-4xl mx-auto">
+              <h5 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 sm:mb-6">
                 {isKashmiri ? '🚀 تعاون کے لیے تیار؟' : '🚀 Ready to Collaborate?'}
-              </h3>
-              <p className="text-gray-300 mb-8">
+              </h5>
+              <p className="text-lg sm:text-xl text-gray-700 mb-8 font-semibold leading-relaxed max-w-3xl mx-auto">
                 {isKashmiri 
                   ? 'آئیے مل کر کچھ شاندار بنائیں۔ سائبر سیکیورٹی، فُل سٹیک، یا موبائل ایپ ڈیولپمنٹ - میں ہر چیز میں مدد کر سکتا ہوں!'
                   : 'Let\'s build something amazing together! Whether it\'s cybersecurity, full-stack development, or mobile apps - I\'m ready to help!'
                 }
               </p>
-              <button className="bg-gradient-to-r from-pink-500 to-violet-500 text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl">
-                {isKashmiri ? '📞 رابطہ کریں' : '📞 Get In Touch'}
-              </button>
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-2xl mx-auto">
+                <a 
+                  href="#contact"
+                  className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-8 py-4 rounded-2xl font-bold hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-green-500"
+                >
+                  <span className="mr-2">📞</span>
+                  {isKashmiri ? 'رابطہ کریں' : 'Get In Touch'}
+                </a>
+                <a 
+                  href="/resume/Taqaddus_Shafi_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white text-gray-800 px-8 py-4 rounded-2xl font-bold hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-gray-300 hover:border-blue-400"
+                >
+                  <span className="mr-2">📄</span>
+                  {isKashmiri ? 'ریزیومے دیکھیں' : 'View Resume'}
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* ✅ Kashmir-themed Animations */}
+      <style jsx>{`
+        @keyframes gentle-float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        @keyframes fade-in-up {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slide-in-up {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scale-in {
+          from { opacity: 0; transform: scale(0); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .animate-gentle-float { animation: gentle-float 6s ease-in-out infinite; }
+        .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
+        .animate-slide-in-up { animation: slide-in-up 0.8s ease-out forwards; }
+        .animate-scale-in { animation: scale-in 0.6s ease-out forwards; }
+        
+        .line-clamp-3 {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+        }
+      `}</style>
     </section>
   )
 }
