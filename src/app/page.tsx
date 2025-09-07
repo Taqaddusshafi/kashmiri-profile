@@ -182,23 +182,7 @@ export default function Home() {
   return (
     <div className="min-h-screen relative overflow-x-hidden bg-gradient-to-br from-white via-gray-50 to-slate-100">
       
-      {/* ✅ FIXED: Repositioned Visitor Counter */}
-      <div className="fixed bottom-4 left-4 sm:top-6 sm:left-6 sm:bottom-auto z-50 group">
-        <div className="bg-white shadow-xl border-2 border-gray-300 text-gray-800 px-3 sm:px-4 py-2 sm:py-3 rounded-2xl text-xs sm:text-sm hover:scale-105 transition-all duration-300">
-          <div className="flex items-center gap-2">
-            <div className="relative">
-              <span className="text-lg sm:text-xl">🏔️</span>
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse border border-white"></div>
-            </div>
-            <div>
-              <div className="text-xs text-gray-600 font-medium">Visitor</div>
-              <div className="font-black text-sm sm:text-base text-gray-800" suppressHydrationWarning>
-                #{visitCount.toLocaleString()}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       {/* ✅ High Contrast Background */}
       <div className="fixed inset-0">
