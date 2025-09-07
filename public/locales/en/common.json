@@ -1,0 +1,24 @@
+﻿{
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "Your Name",
+    "title": "Full Stack Developer",
+    "subtitle": "From the beautiful valleys of Kashmir",
+    "description": "Passionate about creating amazing digital experiences with modern web technologies.",
+    "downloadCV": "Download CV",
+    "contactMe": "Contact Me"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I am a dedicated software developer from Kashmir, combining traditional values with modern technology skills."
+  },
+  "languageSwitcher": "کٲشُر"
+}
